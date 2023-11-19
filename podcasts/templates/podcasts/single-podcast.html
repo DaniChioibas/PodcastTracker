@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<h1>Podcast</h1>
+<br>
+<h1>Titlu: {{podcastObj.title}}</h1>
+<br>
+<h1>Descriere: {{podcastObj.descriere}}</h1>
+<br>
+<h1>Creat la: {{podcastObj.created}}</h1>
+<br>
+<h1>Id unic: {{podcastObj.id}}</h1>
+<br>
+<h1>Review-uri:</h1>
+<hr>
+{% for review in reviews %}
+    <span style="border:1px solid rgb(128, 128, 128)">{{review}}</span>
+{% endfor %}
+<hr>
+
+{% endblock content %}

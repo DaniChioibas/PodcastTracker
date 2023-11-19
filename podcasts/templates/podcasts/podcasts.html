@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+
+<h1>Podcasts template</h1>
+
+
+<hr>
+
+<h1>Podcasts</h1>
+
+<ul>
+    {% for podcast in allpodcasts %}
+        <li>Name: <a href="{% url 'podcast' podcast.id %}">{{podcast.title}}</a>
+            Description: {{podcast.descriere}}
+        </li>
+    {% endfor %}
+
+{% endblock content %}
