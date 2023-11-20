@@ -2,19 +2,54 @@
 
 {% block content %}
 
+  <!-- Main Section -->
+  <main class="projects">
+    <section class="hero-section text-center">
+      <div class="container container--narrow">
+        <div class="hero-section__box">
+          <h2>Search for <span>Podcasts</span></h2>
+        </div>
 
-<h1>Podcasts template</h1>
+        <div class="hero-section__search">
+          <form class="form" action="#" method="get">
+            <div class="form__field">
+              <label for="formInput#search">Search By Projects </label>
+              <input class="input input--text" id="formInput#search" type="text" name="text"
+                placeholder="Search by Podcast Title" />
+            </div>
 
+            <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- Search Result: DevList -->
+    <section class="projectsList">
+      <div class="container">
+        <div class="grid grid--three">
 
-<hr>
+        {% for podcast in allpodcasts %}
+          <div class="column">
+            <div class="card project">
+              <a href="{% url 'podcast' podcast.id %}" class="project">
+                <img class="project__thumbnail" src="{{podcast.featured_image.url}}" alt="project thumbnail" />
+                <div class="card__body">
+                  <h3 class="project__title">{{podcast.title}}</h3>
+                  <p><a class="project__author">{{podcast.description}}</a></p>
+                  <p class="project--rating">
+                    <span style="font-weight: bold;">98%</span> Postitive
+                    Feedback ({{podcast.vote_total}} Vote{{podcast.vote_total|pluralize:"s"}})
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>      
+          {% endfor %}  
 
-<h1>Podcasts</h1>
-
-<ul>
-    {% for podcast in allpodcasts %}
-        <li>Name: <a href="{% url 'podcast' podcast.id %}">{{podcast.title}}</a>
-            Description: {{podcast.descriere}}
-        </li>
-    {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
 
 {% endblock content %}

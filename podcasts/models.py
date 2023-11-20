@@ -5,6 +5,7 @@ import uuid
 class Podcast(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
+    featured_image=models.ImageField(null=True,blank=True, default="default.jpg")
     tags= models.ManyToManyField('Tag', blank=True)
     created = models.DateTimeField(auto_now_add=True)
     vote_total=models.IntegerField(default=0, null=True,blank=True)
