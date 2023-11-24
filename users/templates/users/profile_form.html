@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+
+    <!-- Main Section -->
+    <main class="formPage my-xl">
+        <div class="content-box">
+            <div class="formWrapper">
+                <h4>Edit account</h4>  
+                <br>
+                <h4>Hello, {{username}}</h4>  
+                <form class="form" method="POST" action="{% url 'edit-account' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form__field">
+                        {% if 'profile_imagea' in field.label_tag %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }} </label>
+                            <img src="{{ field.value.url }}" alt="{{ field.label }}" width="0" height="0">
+                        {% else %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }} </label>
+                            {{ field }}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                    </div>
+                    <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
