@@ -13,6 +13,7 @@ Adjust edit profile page.
 Add image in edit profile page.
 --
 
+Change root hompage to /'' to /podcasts
 
 Homepage ? How should the homepage look like, what should the homepage contain ?
 
@@ -20,11 +21,15 @@ Customize css for podcasts, episodes.
 
 Users login/registration and pages.
 
-Logo.
-
 Navbar. For logged users: Podcasts, Episodes, Watchlist, My account, Logout
 Navbar. For not logged users: Podcasts, Episodes, Logout
 
 API for podcasts from spotify. Shows and episodes.
 
 My account: Add number of shows watchlisted, number of episodes watchlisted/seen.
+
+Every comment should have a grey body.
+
+Every single-podcast should have Episode list that goes to search-episdoes with a query.
+
+getvotecount doesn't work.
