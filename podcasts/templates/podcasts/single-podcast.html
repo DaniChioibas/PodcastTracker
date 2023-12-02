@@ -1,3 +1,4 @@
+
 {% extends "main.html" %}
 
 {% block content %}
@@ -30,14 +31,23 @@
             {% if request.user.profile.id in podcast.reviewers %}
             {% elif request.user.is_authenticated %}
             <form class="form" action="{% url 'podcast' podcast.id %}" method="POST">
-              
+              <div class="star-rating">
+                <i class="far fa-star" data-rating="1"></i>
+                <i class="far fa-star" data-rating="2"></i>
+                <i class="far fa-star" data-rating="3"></i>
+                <i class="far fa-star" data-rating="4"></i>
+                <i class="far fa-star" data-rating="5"></i>
+                <input type="hidden" name="rating" id="selectedRating" value="0">
+            </div>
                 {% csrf_token %}
-                {% for field in form %}
                 <div class="form__field">
-                  <label for="formInput#textarea">{{field.label}} </label>
-                  {{field}}
+                  <label for="formInput#textarea">{{form.body.value}} </label>
+                  {{form.value}}
                 </div>
-                {% endfor %}
+                <div class="form__field">
+                  <label for="formInput#textarea">{{form.body.label}} </label>
+                  {{form.body}}
+                </div>
                 <input class="btn btn--sub btn--lg" type="submit" value="Submit review" />
               </form>
               {% else %}
@@ -52,7 +62,17 @@
                 </a>
                 
                 <div class="comment__details">
-                  <a class="comment__author">{{review.owner.username}}</a>
+                  {% if review.value == 1 %}
+                  <a class="comment__author">{{review.owner.username}} ⭐</a>
+                  {% elif review.value == 2 %}
+                  <a class="comment__author">{{review.owner.username}} ⭐⭐</a>
+                  {% elif review.value == 3 %}
+                  <a class="comment__author">{{review.owner.username}} ⭐⭐⭐</a>
+                  {% elif review.value == 4 %}
+                  <a class="comment__author">{{review.owner.username}} ⭐⭐⭐⭐</a>
+                  {% elif review.value == 5 %}
+                  <a class="comment__author">{{review.owner.username}} ⭐⭐⭐⭐⭐</a>
+                  {% endif %}
                   <p class="comment__info">  {{review.body}} </p>
                 </div>
               </div>

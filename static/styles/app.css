@@ -464,9 +464,10 @@ img {
   margin-bottom: 3rem;
 }
 
-.project__author{
+.project__author {
   font-size: 1.4rem;
   font-style: italic;
+  color: #2d2d39; /* Replace with your desired color code */
 }
 
 .project--rating{
@@ -844,4 +845,19 @@ img {
   color: var(--color-sub);
   margin-bottom: 1rem;
   margin-top: 2rem;
+}
+
+.star-rating {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.star-rating i {
+  color: #ddd;
+  transition: color 0.3s;
+}
+
+.star-rating i:hover,
+.star-rating i.active {
+  color: #FFD700;
 }
