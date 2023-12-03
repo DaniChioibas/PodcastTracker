@@ -33,3 +33,9 @@ Every comment should have a grey body.
 Every single-podcast should have Episode list that goes to search-episdoes with a query.
 
 getvotecount doesn't work.
+
+add spotify images to podcast model.
+
+When rating, the total ratings amount doesn't go up.
+
+Bugged favicon.ico 
