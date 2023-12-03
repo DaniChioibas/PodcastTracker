@@ -2,8 +2,6 @@
 Apps:
 - users (to finish)
 - podcasts (to finish)
-- episodes (to implement)
-
 --
 Debug Error messages in register. 07-03
 Debug Error alerts. Positioning and can't click X. 07-03
@@ -12,8 +10,6 @@ Clear button in edit profile doesn't work.
 Adjust edit profile page.
 Add image in edit profile page.
 --
-
-Change root hompage to /'' to /podcasts
 
 Homepage ? How should the homepage look like, what should the homepage contain ?
 
@@ -36,6 +32,4 @@ getvotecount doesn't work.
 
 add spotify images to podcast model.
 
-When rating, the total ratings amount doesn't go up.
-
-Bugged favicon.ico 
+Reviews for episodes.

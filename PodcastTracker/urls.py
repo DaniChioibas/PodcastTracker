@@ -7,8 +7,8 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
     path("", include("podcasts.urls")),
+    path("admin/", admin.site.urls),
     path("users/", include("users.urls")),
 
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="reset_password.html"),

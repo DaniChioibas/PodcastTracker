@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Podcast
+from .models import Podcast,Episode
 from .models import Review
-from .utils import searchPodcast,paginatePodcasts
+from .utils import searchPodcast,paginatePodcasts,searchEpisode,paginateEpisodes
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from .forms import ReviewForm
 from django.contrib import messages
@@ -35,3 +35,16 @@ def podcast(request, pk):
         return redirect('podcast', pk=podcastObj.id)
     return render(request, "podcasts/single-podcast.html", {'podcast':podcastObj,'reviews':reviews,'form':form})
 
+def episodes(request):
+    allepisodes, search_episode=searchEpisode(request)
+
+    numberOfResultsPerPage=6
+    custom_range, allepisodes = paginateEpisodes(request,allepisodes,numberOfResultsPerPage)
+    
+    context={'allepisodes': allepisodes, 'search_episode':search_episode, 'custom_range':custom_range}
+    return render(request, "podcasts/episodes.html",context)
+
+def episode(request, pk):
+    episodeObj= Episode.objects.get(id=pk)
+    context = {'episode':episodeObj}
+    return render(request, "podcasts/single-episode.html",context)

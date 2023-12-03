@@ -7,15 +7,15 @@
     <section class="hero-section text-center">
       <div class="container container--narrow">
         <div class="hero-section__box">
-          <h2>Search for <span>Podcasts</span></h2>
+          <h2>Search for <span>Episodes</span></h2>
         </div>
 
         <div class="hero-section__search">
-          <form id="searchForm" class="form" action="{% url 'podcasts' %}" method="get">
+          <form id="searchForm" class="form" action="{% url 'episodes' %}" method="get">
             <div class="form__field">
               <label for="formInput#search"> </label>
-              <input class="input input--text" id="formInput#search" type="text" name="search_podcast"
-               value="{{search_podcast}}" placeholder="Search by Podcast Title" />
+              <input class="input input--text" id="formInput#search" type="text" name="search_episode"
+               value="{{search_episode}}" placeholder="Search by Episode Title" />
             </div>
 
             <input class="btn btn--sub btn--lg" type="submit" value="Search" />
@@ -28,14 +28,15 @@
       <div class="container">
         <div class="grid grid--three">
 
-        {% for podcast in allpodcasts %}
+        {% for episode in allepisodes %}
           <div class="column">
             <div class="card project">
-              <a href="{% url 'podcast' podcast.id %}" class="project">
-                <img class="project__thumbnail" src="{{podcast.featured_image.url}}" alt="project thumbnail" />
+                <!-- Href-ul de jos este url pentru 1 episod -->
+              <a href="{% url 'episode' episode.id %}" class="project"> 
+                <img class="project__thumbnail" src="{{episode.featured_image.url}}" alt="project thumbnail" />
                 <div class="card__body">
-                  <h3 class="project__title">{{podcast.title}}</h3>
-                  <p><a class="project__author">{{podcast.description}}</a></p>
+                  <h3 class="project__title">{{episode.title}}</h3>
+                  <p><a class="project__author">{{episode.description}}</a></p>
                   </p>
                 </div>
               </a>
@@ -47,7 +48,7 @@
       </div>
     </section>
 
-    {% include 'pagination.html' with queryset=allpodcasts custom_range=custom_range%}
+    {% include 'pagination.html' with queryset=allepisodes custom_range=custom_range%}
 
   </main>
 </body>

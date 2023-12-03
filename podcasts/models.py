@@ -11,6 +11,10 @@ class Podcast(models.Model):
     vote_total=models.IntegerField(default=0, null=True,blank=True)
     vote_ratio=models.FloatField(default=0, null=True,blank=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    spotifyid = models.CharField(max_length=200,null=True, blank=True)
+    spotifyurl = models.CharField(max_length=2048,null=True, blank=True)
+    spotifyimg = models.CharField(max_length=2048,null=True, blank=True)
+
 
 
     def __str__(self):
@@ -38,6 +42,28 @@ class Podcast(models.Model):
     def reviewers(self):
         queryset = self.reviews.all().values_list('owner__id',flat=True)
         return queryset
+    
+class Episode(models.Model):
+    title = models.CharField(max_length=400)
+    description = models.TextField(null=True, blank=True)
+    spotifyid = models.CharField(max_length=200,null=True, blank=True)
+    spotifyurl = models.CharField(max_length=2048,null=True, blank=True)
+    spotifyimg = models.CharField(max_length=2048,null=True, blank=True)
+    release_date = models.CharField(max_length=30)
+    featured_image=models.ImageField(null=True,blank=True, default="default.jpg")
+    created = models.DateTimeField(auto_now_add=True)
+    vote_total=models.IntegerField(default=0, null=True,blank=True)
+    vote_ratio=models.FloatField(default=0, null=True,blank=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+
+    podcast = models.ForeignKey('Podcast', null=True, blank=True, on_delete=models.CASCADE, related_name='episodes')
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        ordering = ['-created']
+
     
 class Review(models.Model):
     RATING_CHOICES = [
