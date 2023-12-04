@@ -15,10 +15,9 @@ Homepage ? How should the homepage look like, what should the homepage contain ?
 
 Customize css for podcasts, episodes.
 
-Users login/registration and pages.
 
 Navbar. For logged users: Podcasts, Episodes, Watchlist, My account, Logout
-Navbar. For not logged users: Podcasts, Episodes, Logout
+Navbar. For not logged users: Podcasts, Episodes, Login/Signup
 
 API for podcasts from spotify. Shows and episodes.
 
@@ -28,8 +27,4 @@ Every comment should have a grey body.
 
 Every single-podcast should have Episode list that goes to search-episdoes with a query.
 
-getvotecount doesn't work.
-
 add spotify images to podcast model.
-
-Reviews for episodes.

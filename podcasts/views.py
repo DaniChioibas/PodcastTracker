@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Podcast,Episode
-from .models import Review
+from .models import Review,ReviewEpisode
 from .utils import searchPodcast,paginatePodcasts,searchEpisode,paginateEpisodes
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
-from .forms import ReviewForm
+from .forms import ReviewForm,ReviewForm2
 from django.contrib import messages
 
 
@@ -46,5 +46,18 @@ def episodes(request):
 
 def episode(request, pk):
     episodeObj= Episode.objects.get(id=pk)
-    context = {'episode':episodeObj}
-    return render(request, "podcasts/single-episode.html",context)
+    form = ReviewForm2()
+    reviews= ReviewEpisode.objects.filter(episode=episodeObj)
+
+    if request.method=='POST':
+        form = ReviewForm2(request.POST)
+        review = form.save(commit=False)
+        review.episode = episodeObj
+        review.owner = request.user.profile        
+        review.save()
+        
+        #Update podcast ratios
+        episodeObj.getVoteCount
+        messages.success(request,"Your review was submited!")
+        return redirect('episode', pk=episodeObj.id)
+    return render(request, "podcasts/single-episode.html", {'episode':episodeObj,'reviews':reviews,'form':form})

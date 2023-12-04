@@ -18,7 +18,7 @@
         <div class="column column--2of3">
           <img class="singleProject__preview" src="{{ podcast.featured_image.url }}" alt="portfolio thumbnail" />
           <span class="tag tag--pill tag--sub tag--lg">
-            <small>{{podcast.vote_ratio}} ⭐ ({{podcast.vote_total}} Rating{{podcast.vote_total|pluralize:"s"}})</small>
+            <small>{{ podcast.vote_ratio|floatformat:1 }} ⭐ ({{podcast.vote_total}} Rating{{podcast.vote_total|pluralize:"s"}})</small>
           </span>
           <h2 class="singleProject__title">{{podcast.title}}</h2>
           <h3 class="singleProject__subtitle">About the podcast</h3>
