@@ -33,10 +33,10 @@
             <div class="card project">
                 <!-- Href-ul de jos este url pentru 1 episod -->
               <a href="{% url 'episode' episode.id %}" class="project"> 
-                <img class="project__thumbnail" src="{{episode.featured_image.url}}" alt="project thumbnail" />
+                <img class="project__thumbnail" src="{{episode.spotifyimg}}" alt="project thumbnail" />
                 <div class="card__body">
-                  <h3 class="project__title">{{episode.title}}</h3>
-                  <p><a class="project__author">{{episode.description}}</a></p>
+                  <h3 class="project__title">{{episode.title|truncatechars:55}}</h3>
+                  <p><a class="project__author">{{episode.description|truncatechars:125}}</a></p>
                   </p>
                 </div>
               </a>

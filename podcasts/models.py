@@ -14,6 +14,7 @@ class Podcast(models.Model):
     spotifyid = models.CharField(max_length=200,null=True, blank=True)
     spotifyurl = models.CharField(max_length=2048,null=True, blank=True)
     spotifyimg = models.CharField(max_length=2048,null=True, blank=True)
+    spotifyimg2 = models.CharField(max_length=2048,null=True, blank=True)
 
 
 
@@ -49,6 +50,8 @@ class Episode(models.Model):
     spotifyid = models.CharField(max_length=200,null=True, blank=True)
     spotifyurl = models.CharField(max_length=2048,null=True, blank=True)
     spotifyimg = models.CharField(max_length=2048,null=True, blank=True)
+    spotifyimg2 = models.CharField(max_length=2048,null=True, blank=True)
+    duration = models.IntegerField(default=0, null=True,blank=True)
     release_date = models.CharField(max_length=30)
     featured_image=models.ImageField(null=True,blank=True, default="default.jpg")
     created = models.DateTimeField(auto_now_add=True)
@@ -62,7 +65,7 @@ class Episode(models.Model):
         return self.title
     
     class Meta:
-        ordering = ['-created']
+        ordering = ['-release_date']
 
     @property
     def getVoteCount(self):
