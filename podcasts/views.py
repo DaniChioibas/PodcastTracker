@@ -6,6 +6,7 @@ from .utils import searchPodcast,paginatePodcasts,searchEpisode,paginateEpisodes
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from .forms import ReviewForm,ReviewForm2
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 def podcasts(request):
@@ -61,3 +62,29 @@ def episode(request, pk):
         messages.success(request,"Your review was submited!")
         return redirect('episode', pk=episodeObj.id)
     return render(request, "podcasts/single-episode.html", {'episode':episodeObj,'reviews':reviews,'form':form})
+
+
+@login_required(login_url='login')
+def favorites(request):
+    user=request.user
+    allepisodes = Episode.objects.filter(
+        reviewsEpisode__owner__user=user,
+        reviewsEpisode__value=5
+    )
+
+    numberOfResultsPerPage=6
+    custom_range, allepisodes = paginateEpisodes(request,allepisodes,numberOfResultsPerPage)
+    
+    context={'allepisodes': allepisodes,'custom_range':custom_range}
+    return render(request, "podcasts/favorites.html",context)
+
+@login_required(login_url='login')
+def watched(request):
+    user=request.user
+    allepisodes = Episode.objects.filter(reviewsEpisode__owner__user=user)
+
+    numberOfResultsPerPage=6
+    custom_range, allepisodes = paginateEpisodes(request,allepisodes,numberOfResultsPerPage)
+    
+    context={'allepisodes': allepisodes,'custom_range':custom_range}
+    return render(request, "podcasts/watched.html",context)

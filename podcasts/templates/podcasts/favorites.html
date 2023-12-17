@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+  <!-- Main Section -->
+  <main class="projects">
+    <section class="hero-section text-center">
+      <div class="container container--narrow">
+        <div class="hero-section__box">
+          <h2>Your favorite <span>Episodes</span></h2>
+          <h1><span>Episodes you gave 5 stars</span></h1>  
+      </div>
+    </section>
+    <!-- Search Result: DevList -->
+    <section class="projectsList">
+      <div class="container">
+        <div class="grid grid--three">
+
+        {% for episode in allepisodes %}
+          <div class="column">
+            <div class="card project">
+                <!-- Href-ul de jos este url pentru 1 episod -->
+              <a href="{% url 'episode' episode.id %}" class="project"> 
+                <img class="project__thumbnail" src="{{episode.spotifyimg}}" alt="project thumbnail" />
+                <div class="card__body">
+                  <h3 class="project__title">{{episode.title|truncatechars:55}}</h3>
+                  <p><a class="project__author">{{episode.description|truncatechars:125}}</a></p>
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>      
+          {% endfor %}  
+
+        </div>
+      </div>
+    </section>
+
+    {% include 'pagination.html' with queryset=allepisodes custom_range=custom_range%}
+
+  </main>
+</body>
+
+{% endblock content %}

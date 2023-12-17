@@ -1,3 +1,11 @@
+Reqs:
+python -m venv venv
+pip install:
+- django
+- requests
+- dotenv
+- pythondotenv
+- pillow
 
 Apps:
 - users (to finish)
@@ -10,8 +18,6 @@ Clear button in edit profile doesn't work.
 Adjust edit profile page.
 Add image in edit profile page.
 --
-
-Homepage ? How should the homepage look like, what should the homepage contain ?
 
 Customize css for podcasts, episodes.
 
@@ -28,3 +34,22 @@ Every comment should have a grey body.
 Every single-podcast should have Episode list that goes to search-episdoes with a query.
 
 add spotify images to podcast model.
+
+
+--- prezentare finala ---
+
+- Favorites (episoade cu nota 5)
+- Watched (episoadele care au review)
+- spotify episodes API
+- email confirmation
+- front end:
+    - episode page
+        - details
+        - html description maybe
+        - date
+        - duration
+        - etc
+    -podcast page
+        - latest episodes
+        - all episodes to a search querry
+- my account

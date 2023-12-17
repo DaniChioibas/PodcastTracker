@@ -203,7 +203,6 @@ def spotifyepisodes(): ### Get episodes
                 spotifyimg2=spotifyimg2,
                 podcast=podcast
 
-            # Add more fields as needed
         )
     token=get_token()
     allpodcasts=Podcast.objects.all()

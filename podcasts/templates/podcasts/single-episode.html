@@ -16,14 +16,17 @@
         </div>
 
         <div class="column column--2of3">
-            <img class="singleProject__preview" src="{{episode.spotifyimg}}" alt="portfolio thumbnail" />
+          <a href="{{ episode.spotifyurl }}" target="_blank">
+            <img class="singleProject__preview" src="{{ episode.spotifyimg }}" alt="portfolio thumbnail" />
+        </a>
+        <br>
             <span class="tag tag--pill tag--sub tag--lg">
               <small>{{ episode.vote_ratio|floatformat:1 }} ⭐ ({{episode.vote_total}} Rating{{episode.vote_total|pluralize:"s"}})</small>
             </span>
             <h2 class="singleProject__title">{{episode.title}}</h2>
             <h3 class="singleProject__subtitle">About the episode</h3>
             <div class="singleProject__info">
-              {{episode.description}}
+              {{ episode.description|linebreaks|safe }}
             </div>
 
             <div class="comments">

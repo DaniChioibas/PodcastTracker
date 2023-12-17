@@ -11,19 +11,23 @@
           <h3 class="singleProject__subtitle">Info</h3>
           <div class="singleProject__toolStack">
           </div>
-          <a class="singleProject__liveLink" href="{{podcast.spotifyurl}}" target="_blank"><i class="im im-external-link"></i>Spotify
+          <a class="singleProject__liveLink" href="{{podcast.spotifyurl}}" target="_blank"><i class="im im-globe"></i>Spotify
           </a>
+          
         </div>
 
         <div class="column column--2of3">
-          <img class="singleProject__preview" src="{{ podcast.spotifyimg }}" alt="portfolio thumbnail" />
+          <a href="{{ podcast.spotifyurl }}" target="_blank">
+            <img class="singleProject__preview" src="{{ podcast.spotifyimg }}" alt="portfolio thumbnail" />
+        </a>
+        <br>
           <span class="tag tag--pill tag--sub tag--lg">
             <small>{{ podcast.vote_ratio|floatformat:1 }} ⭐ ({{podcast.vote_total}} Rating{{podcast.vote_total|pluralize:"s"}})</small>
           </span>
           <h2 class="singleProject__title">{{podcast.title}}</h2>
           <h3 class="singleProject__subtitle">About the podcast</h3>
           <div class="singleProject__info">
-            {{podcast.description}}
+            {{podcast.description|linebreaks|safe }}
           </div>
 
           <div class="comments">

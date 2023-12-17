@@ -8,4 +8,8 @@ urlpatterns = [
     path("podcast/<str:pk>/", views.podcast, name="podcast"),
     path("episodes", views.episodes, name="episodes"),
     path("episode/<str:pk>/", views.episode, name="episode"),
+    path("favorites", views.favorites, name="favorites"),
+    path("watched", views.watched, name="watched"),
+    
+
 ]
