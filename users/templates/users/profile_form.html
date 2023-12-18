@@ -17,7 +17,7 @@
                     <div class="form__field">
                         {% if 'profile_imagea' in field.label_tag %}
                             <label for="{{ field.id_for_label }}">{{ field.label }} </label>
-                            <img src="{{ field.value.url }}" alt="{{ field.label }}" width="0" height="0">
+                            <img src="{{ field.value.url }}" alt="{{ field.label }}" width="50" height="50">
                         {% else %}
                             <label for="{{ field.id_for_label }}">{{ field.label }} </label>
                             {{ field }}

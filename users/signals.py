@@ -14,13 +14,6 @@ def createProfile(sender, instance, created, **kwargs):
             username=user.username,
             email=user.email,
             name=user.first_name)
-        send_mail(
-            'Welcome to Podcast Tracker!',
-            'Your account has been succesfully created!',
-            settings.EMAIL_HOST_USER,
-            [profile.email],
-            fail_silently=False,
-        )
         
             
 def deleteUser(sender, instance, **kwargs):

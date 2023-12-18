@@ -26,7 +26,7 @@
             <h2 class="singleProject__title">{{episode.title}}</h2>
             <h3 class="singleProject__subtitle">About the episode</h3>
             <div class="singleProject__info">
-              {{ episode.description|linebreaks|safe }}
+              {{ episode.description_html|safe }}
             </div>
 
             <div class="comments">

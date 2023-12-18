@@ -175,15 +175,21 @@ def spotifyepisodes(): ### Get episodes
 
     def get_episodes(token, show_id):
         headers = get_auth_header(token)
-        query_url = "https://api.spotify.com/v1/shows/" + show_id + "/episodes?market=US&limit=20&offset=1"
+        query_url = "https://api.spotify.com/v1/shows/" + show_id + "/episodes?market=US&limit=20&offset=0"
         result = get(query_url, headers=headers)
         json_result = result.json()
 
         episodes_data = json_result.get("items", [])
         podcast=Podcast.objects.get(spotifyid=show_id)
         for episode_data in episodes_data:
+            spotifyid = episode_data.get("id", "")
+            existing_episode = Episode.objects.filter(spotifyid=spotifyid).first()
+            if existing_episode:
+                continue
+
             title = episode_data.get("name", "Untitled Episode")
             description = episode_data.get("description", "")
+            description_html = episode_data.get("html_description","")
             release_date= episode_data.get("release_date", "")
             duration_ms= episode_data.get("duration_ms", "")
             spotifyid=episode_data.get("id","")
@@ -195,6 +201,7 @@ def spotifyepisodes(): ### Get episodes
             Episode.objects.create(
                 title=title,
                 description=description,
+                description_html=description_html,
                 release_date=release_date,
                 duration=duration_ms,
                 spotifyid=spotifyid,
@@ -202,12 +209,10 @@ def spotifyepisodes(): ### Get episodes
                 spotifyimg=spotifyimg,
                 spotifyimg2=spotifyimg2,
                 podcast=podcast
-
         )
     token=get_token()
     allpodcasts=Podcast.objects.all()
     for podcast in allpodcasts:
         show_id=podcast.spotifyid
         get_episodes(token,show_id)
-    
     

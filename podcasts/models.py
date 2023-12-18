@@ -47,6 +47,7 @@ class Podcast(models.Model):
 class Episode(models.Model):
     title = models.CharField(max_length=400)
     description = models.TextField(null=True, blank=True)
+    description_html = models.TextField(null=True, blank=True)
     spotifyid = models.CharField(max_length=200,null=True, blank=True)
     spotifyurl = models.CharField(max_length=2048,null=True, blank=True)
     spotifyimg = models.CharField(max_length=2048,null=True, blank=True)
