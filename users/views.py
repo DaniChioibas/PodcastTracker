@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Profile
 from .forms import CustomUserCreationForm,ProfileForm
+from podcasts.models import Episode,Podcast
+from .utils import ms_to_hh_mm
 
 
 from .tokens import account_activation_token
@@ -105,6 +107,32 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def editAccount(request):
+    # stats
+    user=request.user
+    allepisodes = Episode.objects.filter(reviewsEpisode__owner__user=user)
+    allepisodes2 = Episode.objects.filter(
+        reviewsEpisode__owner__user=user,
+        reviewsEpisode__value=5
+    )
+    allepisodes_count = allepisodes.count()
+    allepisodes_count2 = allepisodes2.count()
+    total=0
+    for episode in allepisodes:
+        total+=episode.duration
+
+    maxepisode={}
+    for episode in allepisodes:
+        title=episode.podcast.title
+        if title not in maxepisode:
+            maxepisode[title] = 1
+        else:
+            maxepisode[title] += 1
+    if maxepisode:
+        max_title = max(maxepisode, key=lambda k: maxepisode[k])
+    else:
+        max_title = None
+    duration=ms_to_hh_mm(total)
+    # end of stats
     profile=request.user.profile
     form=ProfileForm(instance=profile)
     if request.method=='POST':
@@ -113,5 +141,5 @@ def editAccount(request):
             form.save()
             messages.success(request, 'Account updated successfully.')
             return redirect('edit-account')
-    context={'form':form,'username':profile.username}
+    context={'form':form,'username':profile.username,'email':profile.email,'watched':allepisodes_count,'favorites':allepisodes_count2,'duration':duration,'title':max_title}
     return render(request, 'users/profile_form.html', context)

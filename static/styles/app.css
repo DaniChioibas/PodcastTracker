@@ -861,3 +861,9 @@ img {
 .star-rating i.active {
   color: #FFD700;
 }
+
+.custom-image-size {
+  width: 100%; /* Set the width as desired, e.g., 100% for full width */
+  height: auto; /* Maintain aspect ratio */
+  /* Add any additional styles you need */
+}

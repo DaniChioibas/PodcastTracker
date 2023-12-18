@@ -1,0 +1,22 @@
+/* styles.css */
+.column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card.project {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .project__thumbnail {
+    margin: auto;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+  

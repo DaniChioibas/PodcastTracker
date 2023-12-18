@@ -15,18 +15,60 @@
                     {% csrf_token %}
                     {% for field in form %}
                     <div class="form__field">
-                        {% if 'profile_imagea' in field.label_tag %}
-                            <label for="{{ field.id_for_label }}">{{ field.label }} </label>
-                            <img src="{{ field.value.url }}" alt="{{ field.label }}" width="50" height="50">
-                        {% else %}
-                            <label for="{{ field.id_for_label }}">{{ field.label }} </label>
+                        {% if 'profile_image' in field.label_tag %}
+                        <img class="avatar avatar--lg" src="{{ form.instance.profile_image.url }}" />
+                            <label for="{{ field.id_for_label }}">Change profile picture  </label>
+                            <br>
                             {{ field }}
+                        {% elif 'email' in field.label_tag %}
+                            <br>
+                            <label for="{{ field.id_for_label }}">{{ field.label }} : {{email}} </label>
+                            <br>
+                        {% else %}
+                        <label for="{{ field.id_for_label }}">{{ field.label }} </label>
+                        {{ field }}
                         {% endif %}
                     </div>
                 {% endfor %}
 
                     </div>
                     <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <main class="formPage my-xl">
+        <div class="content-box">
+            <div class="formWrapper">
+                <h4>Stats for {{username}}</h4>  
+                <br>
+                {% if watched %}
+                <label for="">Number of episodes watched: <strong>{{watched}}</strong></label>
+                {% else %}
+                <label for="">Number of episodes watched: <strong>0</strong></label>
+                {% endif %}
+                <br>
+                <br>
+                {% if favorites %}
+                <label for="">Number of episodes you rated 5/5: <strong>{{favorites}}</strong></label>
+                {% else %}
+                <label for="">Number of episodes you rated 5/5: <strong>0</strong></label>
+                {% endif %}
+                <br>
+                <br>
+                {% if duration %}
+                <label for="">Time spent listening to podcasts: <strong>{{duration}}</strong></label>
+                {% else %}
+                <label for="">Time spent listening to podcasts: <strong>0 Minutes</strong></label>
+                {% endif %}
+                <br>
+                <br>
+                {% if title %}
+                <label for="">Your favorite podcast is: <strong>{{title}}</strong></label>
+                {% else %}
+                <label for="">Your favorite podcast is: <strong>-</strong></label>
+                {% endif %}
                 </form>
             </div>
         </div>

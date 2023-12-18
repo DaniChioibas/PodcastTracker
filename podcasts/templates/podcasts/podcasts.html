@@ -1,7 +1,44 @@
 {% extends "main.html" %}
 
-{% block content %}
 
+
+{% block content %}
+</head>
+<body>
+  <style>
+    .column {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .card.project {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      width: 350px; /* Adjust the width based on your design */
+      height: 500px; /* Set a fixed height for the card */
+      border: 1px solid #ccc; /* Optional: Add a border for styling */
+      border-radius: 10px; /* Adjust the value to control the roundness of the corners */
+      overflow: hidden; /* Hide overflowing content */
+    }
+  
+    .project__thumbnail {
+      width: 100%; /* Ensure the image takes up the full width of the card */
+      height: auto; /* Maintain the image's aspect ratio */
+      border-bottom: 1px solid #ccc; /* Optional: Add a border between the image and text */
+    }
+  
+    .card__body {
+      padding: 10px; /* Add padding to the card body for spacing */
+      overflow: hidden; /* Hide overflowing text */
+    }
+  
+    .project__title {
+      margin-bottom: 5px; /* Optional: Add margin between title and description */
+    }
+  </style>
+  
   <!-- Main Section -->
   <main class="projects">
     <section class="hero-section text-center">

@@ -1,6 +1,8 @@
 
 {% extends "main.html" %}
 
+{% load custom_filters %}
+
 {% block content %}
 
   <!-- Main Section -->
@@ -8,21 +10,38 @@
     <div class="container">
       <div class="layout">
         <div class="column column--1of3">
-          <h3 class="singleProject__subtitle">{{episode.podcast.title}}</h3>
+          <a class="singleProject__subtitle" href="{% url 'podcast' episode.podcast.id %}">{{ episode.podcast.title }}</a>
+
           <div class="singleProject__toolStack">
           </div>
-          <a class="singleProject__liveLink" href="{{episode.spotifyurl}}" target="_blank"><i class="im im-external-link"></i>Spotify
+          <a href="{{ episode.spotifyurl }}" target="_blank">
+          <img class="card__image" src="{{ episode.spotifyimg }}" />
+          </a>
+          <br>
+          <br>
+          <span class="tag tag--pill tag--sub tag--lg">
+          <small>{{ episode.vote_ratio|floatformat:1 }} ⭐ ({{episode.vote_total}} Rating{{episode.vote_total|pluralize:"s"}})</small>
+          </span>
+          <br>
+          <br>
+          <span class="tag tag--pill tag--main">
+            <small>⌛ {{episode.duration | convert_duration}} </small>
+          </span>
+         <br>
+          <br>
+          <span class="tag tag--pill tag--main">
+          <small>📅 {{episode.release_date}}</small>
+          </span>
+          <br>
+          <br>
+          <a class="singleProject__liveLink" href="{{episode.spotifyurl}}" target="_blank"><i class="im im-external-link"></i>Listen on Spotify
           </a>
         </div>
 
         <div class="column column--2of3">
-          <a href="{{ episode.spotifyurl }}" target="_blank">
-            <img class="singleProject__preview" src="{{ episode.spotifyimg }}" alt="portfolio thumbnail" />
-        </a>
         <br>
-            <span class="tag tag--pill tag--sub tag--lg">
-              <small>{{ episode.vote_ratio|floatformat:1 }} ⭐ ({{episode.vote_total}} Rating{{episode.vote_total|pluralize:"s"}})</small>
-            </span>
+        <br>
+        <br>
             <h2 class="singleProject__title">{{episode.title}}</h2>
             <h3 class="singleProject__subtitle">About the episode</h3>
             <div class="singleProject__info">
@@ -65,19 +84,34 @@
                   </a>
                   
                   <div class="comment__details">
-                    {% if review.value == 1 %}
-                    <a class="comment__author">{{review.owner.username}} ⭐</a>
-                    {% elif review.value == 2 %}
-                    <a class="comment__author">{{review.owner.username}} ⭐⭐</a>
-                    {% elif review.value == 3 %}
-                    <a class="comment__author">{{review.owner.username}} ⭐⭐⭐</a>
-                    {% elif review.value == 4 %}
-                    <a class="comment__author">{{review.owner.username}} ⭐⭐⭐⭐</a>
-                    {% elif review.value == 5 %}
-                    <a class="comment__author">{{review.owner.username}} ⭐⭐⭐⭐⭐</a>
+                    {% if review.owner == user.profile %}
+                      {% if review.value == 1 %}
+                        <a class="comment__author">{{review.owner.username}} (You) ⭐</a>
+                      {% elif review.value == 2 %}
+                        <a class="comment__author">{{review.owner.username}} (You) ⭐⭐</a>
+                      {% elif review.value == 3 %}
+                        <a class="comment__author">{{review.owner.username}} (You) ⭐⭐⭐</a>
+                      {% elif review.value == 4 %}
+                        <a class="comment__author">{{review.owner.username}} (You) ⭐⭐⭐⭐</a>
+                      {% elif review.value == 5 %}
+                        <a class="comment__author">{{review.owner.username}} (You) ⭐⭐⭐⭐⭐</a>
+                      {% endif %}
+                    {% else %}
+                      {% if review.value == 1 %}
+                        <a class="comment__author">{{review.owner.username}} ⭐</a>
+                      {% elif review.value == 2 %}
+                        <a class="comment__author">{{review.owner.username}} ⭐⭐</a>
+                      {% elif review.value == 3 %}
+                        <a class="comment__author">{{review.owner.username}} ⭐⭐⭐</a>
+                      {% elif review.value == 4 %}
+                        <a class="comment__author">{{review.owner.username}} ⭐⭐⭐⭐</a>
+                      {% elif review.value == 5 %}
+                        <a class="comment__author">{{review.owner.username}} ⭐⭐⭐⭐⭐</a>
+                      {% endif %}
                     {% endif %}
-                    <p class="comment__info">  {{review.body}} </p>
+                    <p class="comment__info">{{review.body}}</p>
                   </div>
+                  
                 </div>
                   {% endfor %}
                 </div>

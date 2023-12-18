@@ -5,6 +5,7 @@ import os
 import base64
 import json
 from requests import post,get
+from django.db.models import Q
 
 def searchPodcast(request): # Search for podcasts by title
     search_podcast = ""
@@ -42,13 +43,16 @@ def paginatePodcasts(request, allpodcasts, results): # Paginator for podcasts
     return custom_range, allpodcasts
 
 def searchEpisode(request): 
-    # Search for episodes by title
+    # Search for episodes by title and podcast title
     search_episode = ""
 
     if request.GET.get('search_episode'):
         search_episode = request.GET.get('search_episode')
 
-    allepisodes = Episode.objects.filter(title__icontains=search_episode)
+    allepisodes = Episode.objects.filter(
+        Q(title__icontains=search_episode) | Q(podcast__title__icontains=search_episode)
+    )
+    
     return allepisodes, search_episode
 
 def paginateEpisodes(request, allepisodes, results): 

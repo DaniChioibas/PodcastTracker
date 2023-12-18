@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 def podcasts(request):
     allpodcasts, search_podcast=searchPodcast(request)
 
-    numberOfResultsPerPage=6
+    numberOfResultsPerPage=9
     custom_range, allpodcasts = paginatePodcasts(request,allpodcasts,numberOfResultsPerPage)
     
     context={'allpodcasts': allpodcasts, 'search_podcast':search_podcast, 'custom_range':custom_range}
@@ -22,6 +22,7 @@ def podcast(request, pk):
     podcastObj= Podcast.objects.get(id=pk)
     form = ReviewForm()
     reviews= Review.objects.filter(podcast=podcastObj)
+    latest_episodes = Episode.objects.filter(podcast=podcastObj).order_by('-release_date')[:5]
 
     if request.method=='POST':
         form = ReviewForm(request.POST)
@@ -34,12 +35,12 @@ def podcast(request, pk):
         podcastObj.getVoteCount
         messages.success(request,"Your review was submited!")
         return redirect('podcast', pk=podcastObj.id)
-    return render(request, "podcasts/single-podcast.html", {'podcast':podcastObj,'reviews':reviews,'form':form})
+    return render(request, "podcasts/single-podcast.html", {'podcast':podcastObj,'reviews':reviews,'form':form,'latest_episodes':latest_episodes,})
 
 def episodes(request):
     allepisodes, search_episode=searchEpisode(request)
 
-    numberOfResultsPerPage=6
+    numberOfResultsPerPage=9
     custom_range, allepisodes = paginateEpisodes(request,allepisodes,numberOfResultsPerPage)
     
     context={'allepisodes': allepisodes, 'search_episode':search_episode, 'custom_range':custom_range}
@@ -70,21 +71,23 @@ def favorites(request):
     allepisodes = Episode.objects.filter(
         reviewsEpisode__owner__user=user,
         reviewsEpisode__value=5
-    )
+    ).order_by('-reviewsEpisode__created')
+    reviews=ReviewEpisode.objects.filter(owner=user.profile)
 
-    numberOfResultsPerPage=6
+    numberOfResultsPerPage=9
     custom_range, allepisodes = paginateEpisodes(request,allepisodes,numberOfResultsPerPage)
     
-    context={'allepisodes': allepisodes,'custom_range':custom_range}
+    context={'allepisodes': allepisodes,'custom_range':custom_range,'allreviews':reviews}
     return render(request, "podcasts/favorites.html",context)
 
 @login_required(login_url='login')
 def watched(request):
     user=request.user
-    allepisodes = Episode.objects.filter(reviewsEpisode__owner__user=user)
+    allepisodes = Episode.objects.filter(reviewsEpisode__owner__user=user).order_by('-reviewsEpisode__created')
+    reviews=ReviewEpisode.objects.filter(owner=user.profile)
 
-    numberOfResultsPerPage=6
+    numberOfResultsPerPage=9
     custom_range, allepisodes = paginateEpisodes(request,allepisodes,numberOfResultsPerPage)
     
-    context={'allepisodes': allepisodes,'custom_range':custom_range}
+    context={'allepisodes': allepisodes,'custom_range':custom_range,'allreviews':reviews}
     return render(request, "podcasts/watched.html",context)

@@ -1,9 +1,46 @@
 {% extends "main.html" %}
 
+{% load custom_filters %}
+
+
 {% block content %}
 
   <!-- Main Section -->
   <main class="projects">
+    <style>
+      .column {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      .card.project {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        width: 350px; /* Adjust the width based on your design */
+        height: 675px; /* Set a fixed height for the card */
+        border: 1px solid #ccc; /* Optional: Add a border for styling */
+        border-radius: 10px; /* Adjust the value to control the roundness of the corners */
+        overflow: hidden; /* Hide overflowing content */
+      }
+    
+      .project__thumbnail {
+        width: 100%; /* Ensure the image takes up the full width of the card */
+        height: auto; /* Maintain the image's aspect ratio */
+        border-bottom: 1px solid #ccc; /* Optional: Add a border between the image and text */
+      }
+    
+      .card__body {
+        padding: 10px; /* Add padding to the card body for spacing */
+        overflow: hidden; /* Hide overflowing text */
+      }
+    
+      .project__title {
+        margin-bottom: 5px; /* Optional: Add margin between title and description */
+      }
+    </style>
+    
     <section class="hero-section text-center">
       <div class="container container--narrow">
         <div class="hero-section__box">
@@ -28,22 +65,26 @@
       <div class="container">
         <div class="grid grid--three">
 
-        {% for episode in allepisodes %}
+          {% for episode in allepisodes %}
           <div class="column">
             <div class="card project">
-                <!-- Href-ul de jos este url pentru 1 episod -->
               <a href="{% url 'episode' episode.id %}" class="project"> 
-                <img class="project__thumbnail" src="{{episode.spotifyimg}}" alt="project thumbnail" />
+                <img class="project__thumbnail" src="{{ episode.spotifyimg }}" alt="project thumbnail"/>
                 <div class="card__body">
-                  <h3 class="project__title">{{episode.title|truncatechars:55}}</h3>
+                  <h6>{{episode.podcast.title|truncatechars:55}}</h6>
+                  <h3 class="project__title">{{episode.title|truncatechars:50}}</h3>
                   <p><a class="project__author">{{episode.description|truncatechars:125}}</a></p>
+                  <br>
+                  <p><a class="project__author">⌛ {{episode.duration|convert_duration}}</a></p>
+                  <br>
+                  <p><a class="project__author">📅 {{episode.release_date}}</a></p>
                   </p>
                 </div>
               </a>
             </div>
           </div>      
-          {% endfor %}  
-
+          {% endfor %} 
+          
         </div>
       </div>
     </section>
